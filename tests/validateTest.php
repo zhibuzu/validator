@@ -8,7 +8,7 @@
 
 namespace Fookii\ValidateTest;
 
-use Fookii\Validate\validate;
+use Fookii\Validate\validator;
 
 class validateTest extends \PHPUnit_Framework_TestCase
 {
@@ -27,7 +27,7 @@ class validateTest extends \PHPUnit_Framework_TestCase
 	{
 		$tel = '15999899876';
 		$zip = '523800';
-		$validator = new validate();
+		$validator = new validator();
 		$validateParams = array (
 			array(
 				'data' => $zip,
@@ -47,7 +47,9 @@ class validateTest extends \PHPUnit_Framework_TestCase
 				'data' => $tel,
 				'rules' => array(
 					array(
-						'rule' => array(array(__NAMESPACE__ . '\validateTest', 'testNoempty'), $tel),
+						'rule' => array(function ($str) {
+							return !empty($str);
+						}, $tel),
 						'message' => '请输入非空手机号码',
 						'code' => -1
 					),

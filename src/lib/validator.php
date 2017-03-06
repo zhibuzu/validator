@@ -8,7 +8,7 @@
 
 namespace Fookii\Validate;
 
-class validate
+class validator
 {
 	/**
 	 * 验证数据
