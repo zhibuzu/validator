@@ -1,2 +1,64 @@
-# php-validator
-validate form data
+# validator
+Validator Component for validate variables such as strings, numbers and arrays
+
+### Usage
+```
+use Jessehu\Component\Validator\Validation;
+
+use Jessehu\Component\Validator\Contraints\NotBlank;
+
+$validator = Validation::createValidator();
+
+// use Contraints Object
+$violations = $validator->validate('Jessehu', array(
+    new NotBlank('this variable can\'t be blank')
+));
+
+// or use custom closure
+$violations = $validator->validate('Jessehu', array(
+    function ($value) {
+        if ('Jesse hu' !== $value) {
+            return array('message' => 'variable value must be Jesse hu');
+        }
+
+        return true;
+    }
+));
+
+if (0 !== count($violations)) {
+    // 类型错误信息
+    foreach ($violations as $violation) {
+        echo $violation->getMessage().'<br>';
+        echo $vialation->getCode().'<br>';
+    }
+}
+
+```
+
+
+# Variable type validator
+validate variable type
+
+### Usage
+```
+use Jessehu\Component\Validator\VariableTypeValidator;
+
+$title = '25日视频直播国王vs勇士 库里一纪录冲历史前3';
+$isNbaNews = true;
+$score = 45;
+
+$validator = VariableTypeValidator::createValidator();
+$violations = $validator->validate(array(
+   'title' => array('is_string', $title),
+   'isNbaNews' => array('is_bool', $isNbaNews),
+   'score' => array('is_int', $score)
+));
+
+if (0 !== count($violations)) {
+    // 类型错误信息
+    foreach ($violations as $violation) {
+        echo $violation->getMessage().'<br>';
+        echo $vialation->getCode().'<br>';
+    }
+}
+```
