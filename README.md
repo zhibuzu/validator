@@ -3,6 +3,8 @@ Validator Component for validate variables such as strings, numbers and arrays
 
 ### Usage
 ```
+require '../vendor/autoload.php';
+
 use Jessehu\Component\Validator\Validation;
 
 use Jessehu\Component\Validator\Contraints\NotBlank;
@@ -41,6 +43,8 @@ validate variable type
 
 ### Usage
 ```
+require '../vendor/autoload.php';
+
 use Jessehu\Component\Validator\VariableTypeValidator;
 
 $title = '25日视频直播国王vs勇士 库里一纪录冲历史前3';
