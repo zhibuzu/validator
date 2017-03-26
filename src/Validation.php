@@ -14,7 +14,7 @@ use Jessehu\Component\Validator\Exceptions as Exceptions;
 
 class Validation implements ValidatorInterface
 {
-    // 验证目标变量为成功使用的逻辑
+    // 验证结果通过需满足全部约束条件还是只需满足其中一项约束条件即可
     // 逻辑AND：变量需满足指定的全部约束即为验证成功
     const LOGIN_AND = 1;
 
@@ -44,7 +44,7 @@ class Validation implements ValidatorInterface
      * 验证值是否满足约束
      * @param  string $value        要验证的值
      * @param  array   $constraints  约束数组
-     * @param int $logic        判定验证结果对多个约束间需满足对逻辑
+     * @param int $logic        验证结果通过需满足全部约束条件还是只需满足其中一项约束条件即可
      * @return array
      */
     public function validate($value, $constraints, $logic = Validation::LOGIN_AND)
