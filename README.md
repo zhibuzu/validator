@@ -18,7 +18,7 @@ $violations = $validator->validate('Jessehu', array(
 $violations = $validator->validate('Jessehu', array(
     function ($value) {
         if ('Jesse hu' !== $value) {
-            return array('message' => 'variable value must be Jesse hu');
+            return 'variable value must be Jesse hu';
         }
 
         return true;

@@ -22,6 +22,6 @@ if (0 !== count($violations)) {
     // 类型错误信息
     foreach ($violations as $violation) {
         echo $violation->getMessage().'<br>';
-        echo $vialation->getCode().'<br>';
+        echo $violation->getCodes().'<br>';
     }
 }
