@@ -6,6 +6,7 @@ php:
   - hhvm
 before_script:
   - composer install
+  - composer dump-autoload --optimize
 script:
   - phpunit -c phpunit.xml --coverage-text
 after_script:
