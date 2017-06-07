@@ -8,7 +8,7 @@ before_script:
   - composer install
   - composer dump-autoload --optimize
 script:
-  - phpunit --bootstrap ./tests/bootstrap.php -c phpunit.xml
+  - phpunit --bootstrap tests/bootstrap.php --configuration phpunit.xml
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
