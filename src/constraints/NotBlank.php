@@ -8,8 +8,8 @@
 namespace Jessehu\Component\Validator\Contraints;
 
 use Jessehu\Component\Validator\VariableTypeValidator;
-
 use Jessehu\Component\Validator\Exceptions\ValidatorException;
+use Jessehu\Component\Validator\Exceptions\InvalidArgumentException;
 
 class NotBlank implements ContraintInterface
 {
@@ -22,16 +22,11 @@ class NotBlank implements ContraintInterface
 
     public function __construct($message = '')
     {
-        $validator = VariableTypeValidator::createValidator();
-        $violations = $validator->validate(array(
-            'message' => array('is_string', $message)
-        ));
-
-        if (0 !== count($violations)) {
-            throw new \InvalidArgumentException(__NAMESPACE__ . '\NotBlank::__construct accepts argument <message> must be a string.');
+        if (is_array($message) || (is_object($message) && !method_exists($message, '__toString'))) {
+            throw new InvalidArgumentException(__NAMESPACE__ . '/Length::__construct accepts argument <message> must be a string or an object with a __toString method.');
         }
         
-        $this->message = $message ?: $this->message;
+        $this->message = $message ? (string)$message : $this->message;
     }
 
     public function setValue($value)
