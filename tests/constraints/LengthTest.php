@@ -6,7 +6,7 @@
  * Date: 2017/06/07 下午 4:10
  * Project: validator
  */
-require dirname(__DIR__) . '/src/constraints/Length.php';
+require dirname(__DIR__) . '/../src/constraints/Length.php';
 
 class LengthTest extends PHPUnit_Framework_TestCase
 {
@@ -29,6 +29,17 @@ class LengthTest extends PHPUnit_Framework_TestCase
         new \Jessehu\Component\Validator\Contraints\Length($message, $options);
     }
 
+    public function testInterpolate()
+    {
+        $lengthConstraint = new \Jessehu\Component\Validator\Contraints\Length('字符串长度必须为{min}至{max}之间', ['min' => 3, 'max' => 10]);
+
+        $reflectionClass = new ReflectionClass(\Jessehu\Component\Validator\Contraints\Length::class);
+        $reflectObj = $reflectionClass->getProperty('message');
+        $reflectObj->setAccessible(true);
+        $message = $reflectObj->getValue($lengthConstraint);
+        $this->assertEquals('字符串长度必须为3至10之间', $message);
+    }
+
     /**
      * test setValue method
      */
@@ -43,7 +54,6 @@ class LengthTest extends PHPUnit_Framework_TestCase
 
     /**
      * 验证错误
-     * @expectedException Jessehu\Component\Validator\Exceptions\ValidatorException
      */
     public function testValidatorException()
     {
@@ -53,7 +63,7 @@ class LengthTest extends PHPUnit_Framework_TestCase
 
         $lengthConstraint = new \Jessehu\Component\Validator\Contraints\Length($message, $options);
         $lengthConstraint->setValue($value);
-        $lengthConstraint->validate();
+        $this->assertEquals(new \Jessehu\Component\Validator\Exceptions\ValidatorException($message, 'LENGTH'), $lengthConstraint->validate());
     }
 
     /**

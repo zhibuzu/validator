@@ -30,6 +30,27 @@ class Length implements ContraintInterface
 
         $this->message = $message ? (string)$message : $this->message;
         $this->options = $options;
+
+        // 验证错误消息可包括占位符，只能使用第二个参数$options中存在的元素替换
+        $this->message = $this->interpolate($this->message, $options);
+    }
+
+    /**
+     * Interpolates options values into the message placeholders.
+     * @param string $message
+     * @param array $options
+     * @return string $message
+     */
+    protected function interpolate($message, array $options = array())
+    {
+        $replace = array();
+        foreach ($options as $key => $option) {
+            if (!is_array($option) && (!is_object($option) || method_exists($option, '__toString'))) {
+                $replace['{' . $key . '}'] = $option;
+            }
+        }
+
+        return strtr($message, $replace);
     }
 
     /**
@@ -51,11 +72,11 @@ class Length implements ContraintInterface
     {
         $len = mb_strlen($this->value, 'utf-8');
         if (isset($this->options['min']) && $len < (int)$this->options['min']) {
-            throw new ValidatorException($this->message, $this->code);
+            return new ValidatorException($this->message, $this->code);
         }
 
         if (isset($this->options['max']) && $len > (int)$this->options['max']) {
-            throw new ValidatorException($this->message, $this->code);
+            return new ValidatorException($this->message, $this->code);
         }
 
         return true;

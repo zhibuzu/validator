@@ -9,7 +9,6 @@
 namespace Jessehu\Component\Validator;
 
 use Jessehu\Component\Validator\Contraints as Assert;
-
 use Jessehu\Component\Validator\Exceptions as Exceptions;
 
 class Validation implements ValidatorInterface
@@ -80,12 +79,12 @@ class Validation implements ValidatorInterface
      * 验证约束条件是否满足
      * @param $value
      * @param $constraint
-     * @return bool|Exceptions\ValidatorException
+     * @return bool|Exceptions\ValidatorException|Exceptions\InvalidArgumentException
      */
     public function validateConstraint($value, $constraint)
     {
         if (!is_callable($constraint, false) && !is_callable(array($constraint, 'validate'), false)) {
-            throw new \InvalidArgumentException('Use Invalid Validation Constraint');
+            throw new Exceptions\InvalidArgumentException('Use Invalid Validation Constraint');
         }
 
         // 约束为Jessehu\Component\Validator\Constraints中定义的约束对象
