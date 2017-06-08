@@ -49,7 +49,7 @@ class Length implements ContraintInterface
 
     public function validate()
     {
-        $len = mb_strlen($this->value);
+        $len = mb_strlen($this->value, 'utf-8');
         if (isset($this->options['min']) && $len < (int)$this->options['min']) {
             throw new ValidatorException($this->message, $this->code);
         }
