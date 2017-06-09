@@ -24,16 +24,14 @@ class NotEmptyTest extends PHPUnit_Framework_TestCase
 
         $values = array(
             '1',
-            '0',
             ' ',
-            0,
             1,
             array(0)
         );
 
         foreach ($values as $value) {
             $notEmpty->setValue($value);
-            $notEmpty->validate();
+            $this->assertTrue($notEmpty->validate());
         }
     }
 }

@@ -31,7 +31,7 @@ class Length implements ContraintInterface
         $this->message = $message ? (string)$message : $this->message;
         $this->options = $options;
 
-        // 验证错误消息可包括占位符，只能使用第二个参数$options中存在的元素替换
+        // 消息可包括占位符，只能使用第二个参数$options中存在的元素替换
         $this->message = $this->interpolate($this->message, $options);
     }
 
