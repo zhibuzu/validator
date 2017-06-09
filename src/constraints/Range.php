@@ -25,7 +25,7 @@ class Range implements ContraintInterface
     public function __construct($message = '', array $options = array())
     {
         if (is_array($message) || (is_object($message) && !method_exists($message, '__toString'))) {
-            throw new InvalidArgumentException(__NAMESPACE__ . '/Range::__construct accepts argument <message> must be a string or an object with a __toString method.');
+            throw new InvalidArgumentException(__CLASS__ . '::__construct accepts argument <message> must be a string or an object with a __toString method.');
         }
 
         $this->message = $message ? (string)$message : $this->message;
@@ -54,13 +54,13 @@ class Range implements ContraintInterface
     }
 
     /**
-     * @param string $value 仅接收一个字符串或一个带__toString方法的对象
+     * @param string $value 仅接收一个数字或数字字符串
      * @return $this
      */
     public function setValue($value)
     {
         if (!is_numeric($value)) {
-            throw new InvalidArgumentException(__NAMESPACE__ . '/Range::setValue accepts argument <value> must be a numeric.');
+            throw new InvalidArgumentException(__CLASS__ . '::setValue accepts argument <value> must be a numeric.');
         }
 
         $this->value = (float)$value;
